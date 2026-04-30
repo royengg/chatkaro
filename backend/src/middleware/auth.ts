@@ -20,6 +20,10 @@ export async function authMiddleware(
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET as Secret) as JwtPayload;
+    if (!decoded) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    req.user = decoded;
     return next();
   } catch (error) {
     return res.status(401).json({ error: "Unauthorized" });

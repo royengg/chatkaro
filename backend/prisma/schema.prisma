@@ -35,6 +35,6 @@ model Room {
   name        String
   createdAt   DateTime    @default(now())
   users       User[]      @relation
-  userId      String
+  userId      String      
   messages    Message[]
 }

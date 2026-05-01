@@ -4,10 +4,12 @@ import cors from "cors";
 import { authRouter } from "./route/auth";
 import { authMiddleware } from "./middleware/auth";
 import { chatRouter } from "./route/chat";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({

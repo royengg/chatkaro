@@ -27,8 +27,13 @@ authRouter.post("/signup", async (req, res) => {
 
     const token = jwt.sign({ id: user.id }, JWT_SECRET as string);
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24
+    } )
+
     return res.status(201).json({
-      token,
       user: {
         username,
         email,
@@ -61,8 +66,13 @@ authRouter.post("/signin", async (req, res) => {
 
     const token = jwt.sign({ id: user.id }, JWT_SECRET as string);
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24
+    })
+
     return res.status(200).json({
-      token,
       user: { username: user.username, email: user.email },
     });
   } catch (error) {
